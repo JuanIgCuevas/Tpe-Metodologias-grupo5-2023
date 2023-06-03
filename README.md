@@ -9,4 +9,4 @@ Confluence
 https://plataforma-2023.atlassian.net/wiki/spaces/P93G5/overview?homepageId=655560
 
 User story mapping - Miro
-https://miro.com/app/board/uXjVMRM377U=/
+https://miro.com/app/board/uXjVMCNq9Gs=/
