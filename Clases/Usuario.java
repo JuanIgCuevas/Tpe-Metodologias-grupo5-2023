@@ -1,21 +1,22 @@
+package plataforma;
 public class Usuario {
 	//Atributos
-	private int DNI;
+	private String dni;
 	private String nombre, apellido, clave, mail;
 	//Constructor
-	public Usuario (int DNI,String nombre,String apellido,String clave,String mail) {
-		this.DNI = DNI;
+	public Usuario (String dni,String nombre,String apellido,String clave,String mail) {
+		this.dni = dni;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.clave = clave;
 		this.mail = mail;
 	}
 	//Metodos
-	public int getDNI() {
-		return DNI;
+	public String getDNI() {
+		return dni;
 	}
-	public void setDNI(int dNI) {
-		DNI = dNI;
+	public void setDNI(String dni) {
+		this.dni = dni;
 	}
 	public String getNombre() {
 		return nombre;

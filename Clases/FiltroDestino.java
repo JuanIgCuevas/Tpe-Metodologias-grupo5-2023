@@ -1,5 +1,6 @@
+package plataforma;
 import java.util.*;
-public class FiltroDestino {
+public class FiltroDestino implements Filtro {
 	//Atributos
 	private String destino;
 	//Constructor
@@ -8,6 +9,6 @@ public class FiltroDestino {
 	}
 	//Metodos
 	public boolean cumple(Viaje v) {
-		return v.getDestino() == destino;
+		return v.getDestino().equals(destino);
 	}
 }

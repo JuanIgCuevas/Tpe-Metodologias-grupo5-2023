@@ -1,3 +1,4 @@
+package plataforma;
 import java.util.*;
 public class FiltroDiaLlegada implements Filtro{
 	//Atributos
@@ -8,6 +9,6 @@ public class FiltroDiaLlegada implements Filtro{
 	}
 	//Metodos
 	public boolean cumple(Viaje v) {
-		return v.getDiaHoraLlegada().getDay() == diaLlegada;
+		return v.getDiaHoraLlegada().getDayOfWeek() == diaLlegada;
 	}
 }

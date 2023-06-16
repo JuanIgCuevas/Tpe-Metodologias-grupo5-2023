@@ -1,3 +1,5 @@
+package plataforma;
+
 public class Asiento {
 	//Atributos
 	private boolean disponible;

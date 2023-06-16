@@ -1,5 +1,6 @@
+package plataforma;
 import java.util.*;
-public class FiltroEmpresa {
+public class FiltroEmpresa implements Filtro{
 	//Atributos
 	private String empresa;
 	//Constructor
@@ -8,6 +9,6 @@ public class FiltroEmpresa {
 	}
 	//Metodos
 	public boolean cumple(Viaje v){
-		return v.getMicro().getEmpresa() == empresa; 		
+		return empresa.equals(v.getMicro().getEmpresa()); 
 	}
 }

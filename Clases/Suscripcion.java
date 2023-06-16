@@ -1,3 +1,4 @@
+package plataforma;
 public class Suscripcion {
 	//Atributos
 	private String origen, destino;

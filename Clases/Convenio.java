@@ -1,3 +1,4 @@
+package plataforma;
 public class Convenio {
 	//Atributos
 	private Empresa empresa;

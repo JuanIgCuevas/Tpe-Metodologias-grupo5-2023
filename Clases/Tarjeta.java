@@ -1,3 +1,4 @@
+package plataforma;
 public class Tarjeta {
 	//Atributos
 	private int nroTarjeta;

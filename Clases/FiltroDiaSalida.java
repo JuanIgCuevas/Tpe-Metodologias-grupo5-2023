@@ -1,5 +1,6 @@
+package plataforma;
 import java.util.Date;
-public class FiltroDiaSalida {
+public class FiltroDiaSalida implements Filtro{
 	//Atributos
 		private int diaSalida;
 		//Constructor

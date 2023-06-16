@@ -1,13 +1,14 @@
+package plataforma;
 import java.util.*;
 public class FiltroHoraLlegada implements Filtro {
-	//Atributos
+	//Attributes
 	private int horaLlegada;
 	//Constructor
 	public FiltroHoraLlegada(int horaLlegada) {
 		this.horaLlegada = horaLlegada;
 	}
-	//Metodos
+	//metodos
 	public boolean cumple(Viaje v){
-		return v.getDiaHoraLlegada().getHours() == horaLlegada; 		}
+		return v.getDiaHoraLlegada().getHour() == horaLlegada; 		}
 }
 

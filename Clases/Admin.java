@@ -1,10 +1,14 @@
+package plataforma;
 
 public class Admin extends Usuario{
 	//Atributos
 	//Constructor
-	public Admin(int DNI, String nombre, String apellido, String clave, String mail) {
-		super(DNI, nombre, apellido, clave, mail);
+	public Admin(String dni, String nombre, String apellido, String clave, String mail) {
+		super(dni, nombre, apellido, clave, mail);
 	}
+	
+	
+	
 	//Metodos
 	public void agregarEmpresa(Empresa empresa) {
 		//Codigo

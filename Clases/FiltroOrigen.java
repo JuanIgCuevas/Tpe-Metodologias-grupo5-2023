@@ -1,3 +1,5 @@
+package plataforma;
+
 public class FiltroOrigen implements Filtro{
 	//Atributos
 	private String origen;
@@ -7,6 +9,6 @@ public class FiltroOrigen implements Filtro{
 	}
 	//Metodos
 	public boolean cumple(Viaje v) {
-		return v.getOrigen()== origen;
+		return v.getOrigen().equals(origen);
 	}
 }

@@ -1,3 +1,4 @@
+package plataforma;
 import java.util.*;
 public class FiltroHoraSalida implements Filtro{
 	//Atributos
@@ -8,6 +9,6 @@ public class FiltroHoraSalida implements Filtro{
 	}
 	//Metodos
 	public boolean cumple(Viaje v){
-		return v.getDiaHoraSalida().getHours() == horaSalida; 
+		return v.getDiaHoraSalida().getHour() == horaSalida; 
 	}
 }

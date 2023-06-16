@@ -1,45 +1,87 @@
+package plataforma;
 import java.util.*;
-public class Pasajero extends Usuario{
-	//Atributos
+
+public class Pasajero extends Usuario {
+	// Atributos
 	private Pasaje pasaje;
 	private boolean suscripto;
 	private ArrayList<Tarjeta> tarjeta;
 	private ArrayList<Suscripcion> suscripciones;
-	//Constructor
-	public Pasajero(int DNI, String nombre, String apellido, String clave, String mail,
-			Pasaje pasaje, Suscripcion suscripcion) {
-		super(DNI, nombre, apellido, clave, mail);
-		this.pasaje = pasaje;
+
+	// Constructor
+	public Pasajero(String dni, String nombre, String apellido, String clave, String mail) {
+		super(dni, nombre, apellido, clave, mail);
+		this.pasaje = null;
 		this.suscripto = false;
-		ArrayList<Tarjeta> tarjeta = new ArrayList<Tarjeta>();
-		ArrayList<Suscripcion> suscripciones = new ArrayList<Suscripcion>() ;
+		this.tarjeta = new ArrayList<Tarjeta>();
+		this.suscripciones = new ArrayList<Suscripcion>();
 	}
-	//Metodos
-	public void verPasaje(){
-		//Codigo	
+
+	public Pasaje getPasaje() {
+		return pasaje;
 	}
-	public void cancelarPasaje(Pasaje p){
-		//Codigo
+
+	public void setPasaje(Pasaje pasaje) {
+		this.pasaje = pasaje;
 	}
-	public void cargarTarjeta(){
-		//Codigo
+
+	public boolean isSuscripto() {
+		return suscripto;
 	}
-	public void eliminarTarjeta(){
-		//Codigo
+
+	public void setSuscripto(boolean suscripto) {
+		this.suscripto = suscripto;
 	}
-	public void asignarPasajes(Pasajero p){
-		//Codigo
+
+	public ArrayList<Tarjeta> getTarjeta() {
+		return tarjeta;
 	}
-	public void seleccionarAsiento(Asiento a){
-		//Codigo
+
+	public ArrayList<Suscripcion> getSuscripciones() {
+		return suscripciones;
 	}
-	public void realizarPago(){
-		//Codigo
+
+	// Metodos
+	public void verPasaje() {
+		// Codigo
 	}
+
+	public void cancelarPasaje(Pasaje p) {
+		// Codigo
+	}
+
+	public void cargarTarjeta() {
+		// Codigo
+	}
+
+	public void eliminarTarjeta() {
+		// Codigo
+	}
+
+	public void asignarPasajes(Pasajero p) {
+		// Codigo
+	}
+
+	public void seleccionarAsiento(Asiento a) {
+		// Codigo
+	}
+
+	public void realizarPago() {
+		// Codigo
+	}
+
 	public void addSuscripcion(Suscripcion s) {
-		//Codigo
+		// Codigo
 	}
+
 	public void eliminarSuscripcion(Suscripcion s) {
-		//Codigo
+		// Codigo
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		Pasajero pasajero = (Pasajero) obj;
+		return pasajero.getDNI() == super.getDNI();
+	}
+
 }

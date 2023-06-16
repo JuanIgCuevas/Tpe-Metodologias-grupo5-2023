@@ -1,3 +1,4 @@
+package plataforma;
 import java.util.Date;
 public class FiltroCosto implements Filtro{
 	//Atributos

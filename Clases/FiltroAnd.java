@@ -1,3 +1,5 @@
+package plataforma;
+
 public class FiltroAnd implements Filtro{
 	//Atributos
 	private Filtro f1;

@@ -1,5 +1,5 @@
-import java.util.ArrayList;
-import java.util.HashMap;
+package plataforma;
+import java.util.*;
 
 public class Micro {
 	//Atributos
@@ -39,8 +39,15 @@ public class Micro {
 		this.tipo = tipo;
 	}
 
-	public void addViaje(Viaje viaje) {
-		//Codigo
+	public void addViaje(Viaje viaje, ArrayList<Asiento> asientos) {
+		this.viajes.put(viaje, asientos);
 	}
+	@Override
+	public String toString() {
+		return "[cantAsientos=" + cantAsientos + ", empresa=" + empresa + ", tipo=" + tipo + ", viajes=" + viajes
+				+ "]";
+	}
+	
+	
 	
 }

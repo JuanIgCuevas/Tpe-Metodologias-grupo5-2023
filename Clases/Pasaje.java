@@ -1,3 +1,4 @@
+package plataforma;
 public class Pasaje {
 //Atributos
 		private Micro micro;
