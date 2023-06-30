@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.Date;
+//from os import System;
 
 public class MenuPrincipal {
     private Plataforma934 plataforma;
@@ -36,26 +37,24 @@ public class MenuPrincipal {
 		plataforma.addViaje(viaje2);
 		plataforma.addViaje(viaje3);
 		
-		Pasajero pasajero1 = new Pasajero("12345678", "Santiago", "Rodriguez", "1234", "santi@gmail.com");
-		Pasajero pasajero2 = new Pasajero("13345678", "Camila", "Ferreras", "1234", "cami@gmail.com");
-		Pasajero pasajero3 = new Pasajero("14345678", "Juan", "Cuevas", "1234", "juan@gmail.com");
-		Pasajero pasajero4 = new Pasajero("15345678", "Enzo", "Heredia", "1234", "enzo@gmail.com");
+		Pasajero pasajero1 = new Pasajero("12345678", "Santiago", "Rodriguez", "Aa123456", "santi@gmail.com");
+		Pasajero pasajero2 = new Pasajero("13345678", "Camila", "Ferreras", "Aa123456", "cami@gmail.com");
+		Pasajero pasajero3 = new Pasajero("14345678", "Juan", "Cuevas", "Aa123456", "juan@gmail.com");
+		Pasajero pasajero4 = new Pasajero("15345678", "Enzo", "Heredia", "Aa123456", "enzo@gmail.com");
 		plataforma.addPasajero(pasajero1);plataforma.addPasajero(pasajero2);
 		plataforma.addPasajero(pasajero3);plataforma.addPasajero(pasajero4);    
     }
+    
+    public void limpiar(int lineas)
+    {
+    for (int i=0; i < lineas; i++)
+    {
+    System.out.println("");
+    }
+    }
 
-    public void ingresarSistema(String dni){
-        registrado = plataforma.ingresarAlSistema(dni);
-
-        if(registrado == null){
-            System.out.println("\n No existe ningun pasajero con el dni provisto.\n Desea registrase? (Y/N)");
-            String respuesta = console.next();
-            if(respuesta.equalsIgnoreCase("N"))
-                exit();
-            //Se crea paciente por defecto
-            registrado = plataforma.registrarPasajero(dni,"n","n","n","n"); 
-        }
-        showMenu();
+    public void ingresarSistema(boolean invitado){
+    	//
     }
 
     public void exit(){
@@ -64,99 +63,137 @@ public class MenuPrincipal {
         System.out.println("\nHasta luego!");
         System.exit(0);
     }
-
+    
+    public void registrar(boolean nuevo) {
+    	System.out.println("\nIngrese su DNI");
+        String dni = console.nextLine();
+        if (plataforma.usuarioExistente(dni)) {
+        	//limpiar(10);
+        	System.out.println("\nUsted ya esta registrado en el sistema");
+        	showMenu();
+        }
+        else {
+	    	System.out.println("\nIngrese su apellido y nombre");
+	    	String apellido = console.nextLine();
+	    	String nombre = console.nextLine();
+	        System.out.println("\nIngrese una contraseña de 8 caracteres, que contenga una minuscula y una mayuscula como minimo:");
+	        String contrasenia = console.nextLine();
+	        while(!this.verificarPassword(contrasenia)) {
+	        	 System.out.println("La contraseña no cumple los requisitos");
+	        	 System.out.println("\nPor favor ingrese nuevamente una contraseña");
+	        	 contrasenia = console.nextLine();
+	        }
+	        System.out.println("La contraseña es válida");
+	        System.out.println("\nIngrese su email");
+	        String email = console.nextLine();
+	        Pasajero pasajeronuevo = new Pasajero(dni, nombre, apellido, contrasenia, email);
+	        System.out.println("\n¿Quiere asociar una tarjeta?(Y/N)");
+	        String respuesta = console.next();
+            if(respuesta.equals("Y") || respuesta.equals("y")) {
+            	pasajeronuevo.cargarTarjeta();
+            }
+            //limpiar(70);
+            if(nuevo) {
+            	plataforma.addPasajero(pasajeronuevo);
+            	showMenuLogueo(pasajeronuevo);
+            }
+        }
+        //verificar dni, verificar contra
+    }
 
     public void showMenu(){
-        System.out.println("\n Bienvenido: "+registrado.getNombre() + " " + registrado.getApellido());
-        System.out.println("\nIngrese un Origen para filtrar");
-        String origen = console.nextLine();
-        System.out.println("\nIngrese un Destino para filtrar");
-        String destino = console.nextLine();
-        
-        Filtro filtro = null;
-        Filtro filtro1 = null;
-        if(!origen.isEmpty()) {
-        	filtro =  new FiltroOrigen(origen);
-        }
-        if(!destino.isEmpty()) {
-        	filtro1 =  new FiltroDestino(destino);
-        }
-        Filtro filtro2 = new FiltroAnd(filtro, filtro1);
-        
-        ArrayList<Viaje> coincidentes = plataforma.buscarPasaje(filtro2);
-        if(coincidentes.size() == 0){
-            System.out.println("\n La busqueda no retorno resultados");
-            exit();
-        }
-        System.out.println("\nResultado de la busqueda:\n");
-        System.out.println(coincidentes); //Imprime todo?
-     // se deberia seleccionar un viaje, que ingrese uno de la lista de coincidentes, 
-    	System.out.println("\nSeleccione un viaje para comprar pasajes\n");
-    	String nroViaje = console.nextLine();
-    	int nroviaje = Integer.parseInt(nroViaje);
-    	
-    	Viaje viajeElegido = plataforma.getViajes().get(nroviaje-1);
-    	if(viajeElegido == null)
-    		System.out.println("\nEl viaje elegido no coincide con lo mostrado.\n");
-    	else
-    	{
-    		System.out.println("\nGenial, viaje solicitado:\n");
-    		System.out.println(viajeElegido);
-    		System.out.println("\n¿Que metodo utilizara para pagar?\n");
-    		System.out.println("\n1-Efectivo\n");
-    		System.out.println("\n2-Tarjeta de credito\n");
-    		System.out.println("\n3-Tarjeta de debito\n");
-    		String metodoPago = console.nextLine();
-    		switch (metodoPago) {
-    	    case "1":
-    	        System.out.println("Su pago en efectivo debe realizarse en la sucursal");
-    	        break;
-    	    case "2":
-    	        System.out.println("El pago se acreditara a su tarjeta asociada");
-    	        break;
-    	    case "3":
-    	        System.out.println("El pago se acreditara a su tarjeta asociada");
-    	        break;
-    	    default:
-    	        System.out.println("Opción no válida");
-    	        break;
-    	}
+    	System.out.println("BIENVENIDO A PLATAFORMA 9 3/4\n 1- Registrarse \n 2- Ingresar \n 3- Ingresar como invitado\n 4- Salir.\n Elija una opcion: ");
+    	String opcion = console.nextLine();
+//    	int op = Integer.parseInt(opcion);
+    	switch (opcion) {
+	    case "1":
+	        this.registrar(true);
+	        break;
+	    case "2":
+	        this.ingresarSistema(true);
+	        break;
+	    case "3":
+	    	buscarViajes(true,null);
+	        break;
+	    case "4":
+	        this.exit();
+	        break;
+       default: limpiar(25);
+    	   showMenu(); break;
         }
     }
-}
     
-//    public void comprarPasaje() {
-//    	// se deberia seleccionar un viaje, que ingrese uno de la lista de coincidentes, 
-//    	System.out.println("\nSeleccione un viaje para comprar pasajes\n");
-//    	int nroViaje = console.nextLine();
-//    	
-//    }
- 
-   
-  
-        
+    public void showMenuLogueo(Pasajero persona){
+    	System.out.println("\nOpciones \n 1- Buscar Transporte \n 2- Administrar Tarjetas \n 3- Desloguearse\n Elija una opcion: ");
+    	int op = console.nextInt();
+    	switch (op) {
+	    case 1:
+	        buscarViajes(false, persona);
+	        try {
+	    		Thread.sleep (5000);
+	    		} catch (Exception e) {
+	    		// Mensaje en caso de que falle
+	    		}
+	    	this.showMenuLogueo(persona);
+	        break;
+	    case 2:
+	        System.out.println("Ingrese que opcion desea realizar: \n 1- Cargar Tarjeta \n 2- Eliminar Tarjeta \n 3- Mostrar Tarjetas \n 4-  Volver.");
+	        int opT = console.nextInt();
+	    	switch (opT) {
+	    		case 1: persona.cargarTarjeta(); break;
+	    		case 2: persona.eliminarTarjeta(); break;
+	    		case 3: persona.showTarjetas(); break;
+	    		default: this.showMenuLogueo(persona); break;
+	    	}
+	    	try {
+	    		Thread.sleep (5000);
+	    		} catch (Exception e) {
+	    		// Mensaje en caso de que falle
+	    		}
+	    	this.showMenuLogueo(persona);
+	        break;
+	    case 3:
+	    	System.out.println("Se ha deslogueado exitosamente.");
+	    	try {
+	    		Thread.sleep (5000);
+	    		} catch (Exception e) {
+	    		// Mensaje en caso de que falle
+	    		}
+	    	showMenu();
+	    	break;
+	    default: this.showMenu(); break;
+        }
+    }
+    
+	public void buscarViajes(boolean Invitado, Pasajero pasajero) {
+        //
+	}
+	
+ public void comprarPasajes(ArrayList<Viaje> viajes, Pasajero pasajero) {
+		//
+ }
 
+ public boolean verificarPassword(String password) {
+     if (password.length() < 8) {
+         return false;
+     }
 
+     boolean tieneMinuscula = false;
+     boolean tieneMayuscula = false;
+     boolean tieneNumero = false;
 
-   // private void seleccionaTurno(ArrayList<Turno> disponibles,Medico seleccionado){
-     //   if(disponibles.isEmpty()){
-        //    System.out.println("\n El medico no tiene turnos disponibles actualmente");
-       //     exit();
-     //   }
+     for (int i = 0; i < password.length(); i++) {
+         char caracter = password.charAt(i);
+         if (Character.isLowerCase(caracter)) {
+             tieneMinuscula = true;
+         } else if (Character.isUpperCase(caracter)) {
+             tieneMayuscula = true;
+         } else if (Character.isDigit(caracter)) {
+             tieneNumero = true;
+         }
+     }
 
-      //  System.out.println("\nTurnos disponibles");
-    //    for(Turno t:disponibles)
-  //          System.out.println("\n"+t.toString());
-//
-     //   System.out.println("\nIngrese el turno que desea registrar (1-" + disponibles.size() + ")\n");
-       // int entrada = console.nextInt();
-    //    if(entrada < 0 || entrada > disponibles.size()){
-    //        System.out.println("\nValor invalido");
-    //        exit();
-      //  }
-  //      Turno turnoSeleccionado = disponibles.get(entrada-1);
-//
-    //    if(inst.sacarTurno(this.registrado, turnoSeleccionado))
-    //        System.out.println("\nTurno registrado exitosamente!");
-    //}
+     return tieneMinuscula && tieneMayuscula && tieneNumero;
+ }
+}
 
