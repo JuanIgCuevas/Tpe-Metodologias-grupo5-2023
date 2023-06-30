@@ -54,7 +54,33 @@ public class MenuPrincipal {
     }
 
     public void ingresarSistema(boolean invitado){
-    	//
+		System.out.println("\nIngrese su DNI para acceder");
+		String dni = console.nextLine();
+		registrado = plataforma.ingresarAlSistema(dni);
+
+		if(registrado == null){
+			System.out.println("\n No existe ningun pasajero con el dni provisto.\n Desea registrase? (Y/N)");
+			String respuesta = console.nextLine();
+			if(respuesta.equals("Y") || respuesta.equals("y"))
+				if(invitado)
+					this.registrar(true);
+				else
+					registrar(false);
+			else
+				showMenu();
+		}else
+		{
+			System.out.println("\nIngrese su contraseña");
+			String contra = console.nextLine();
+			while(!registrado.getClave().equals(contra)) {
+				System.out.println("\nContraseña incorrecta. Ingresela nuevamente");
+				contra = console.nextLine();
+			}
+		}
+		if(invitado) {
+			System.out.println("Bienevenid@ " + registrado.getNombre() + " " + registrado.getApellido());
+			showMenuLogueo(registrado);
+		}
     }
 
     public void exit(){
@@ -166,7 +192,58 @@ public class MenuPrincipal {
     }
     
 	public void buscarViajes(boolean Invitado, Pasajero pasajero) {
-        //
+        System.out.println("\nIngrese un Origen para filtrar");
+        String origen = console.next();
+        System.out.println("\nIngrese un Destino para filtrar");
+        String destino = console.next();
+        
+        Filtro filtro = null;
+        Filtro filtro1 = null;
+        if(!origen.isEmpty()) {
+        	filtro =  new FiltroOrigen(origen);
+        }
+        if(!destino.isEmpty()) {
+        	filtro1 =  new FiltroDestino(destino);
+        }
+        Filtro filtro2 = new FiltroAnd(filtro, filtro1);
+        
+        ArrayList<Viaje> coincidentes = plataforma.buscarPasaje(filtro2);
+        if(coincidentes.size() == 0){
+            System.out.println("\n La busqueda no retorno resultados");
+            exit();
+        }
+        System.out.println("\nResultado de la busqueda:\n");
+        System.out.println(coincidentes); 
+        System.out.println("\n¿Como desea seguir?:\n1-Buscar viajes. \n2-Comprar. \n3-Volver.\nElija una opcion");
+//        String opcion = console.nextLine();
+//    	int op = Integer.parseInt(opcion);
+        int op = console.nextInt();
+    	switch (op) {
+    	case 1:
+    		buscarViajes(Invitado, pasajero);
+    		break;
+    	case 2:
+    		if(Invitado) {
+    			System.out.println("\nPara continuar debe: \n1-registrarse \n2-Loguearse\nElija una opcion:");
+    			int opa = console.nextInt();
+    			switch(opa) {
+    			case 1:
+    				registrar(false);break;
+    			case 2:
+    				this.ingresarSistema(false);
+    			default: break;
+    			}
+    		}
+    		comprarPasajes(coincidentes, pasajero);
+    		break;
+    	case 3:
+    		if(Invitado)
+    			showMenu();
+    		else
+    			showMenuLogueo(pasajero);
+    		break;
+    	default: break;
+    	}
 	}
 	
  public void comprarPasajes(ArrayList<Viaje> viajes, Pasajero pasajero) {
