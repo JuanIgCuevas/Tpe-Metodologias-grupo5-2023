@@ -246,8 +246,48 @@ public class MenuPrincipal {
     	}
 	}
 	
- public void comprarPasajes(ArrayList<Viaje> viajes, Pasajero pasajero) {
-		//
+public void comprarPasajes(ArrayList<Viaje> viajes, Pasajero pasajero) {
+		System.out.println("\nSeleccione un viaje para comprar pasajes\n");
+    	int nroviaje = console.nextInt();
+    	Viaje viajeElegido = plataforma.getViajes().get(nroviaje-1);
+    	if(viajeElegido == null)
+    		System.out.println("\nEl viaje elegido no coincide con lo mostrado.\n");
+    	else
+    	{
+    		System.out.println("\nGenial, viaje solicitado:\n");
+    		System.out.println(viajeElegido);
+    		System.out.println("\n¿Cuantos pasajes desea comprar?");
+    		int pasajes = console.nextInt();
+    		System.out.println("\n¿Que metodo utilizara para pagar?");
+    		System.out.println("\n1-Efectivo");
+    		System.out.println("\n2-Tarjeta de credito");
+    		String metodoPago = console.next();
+    		switch (metodoPago) {
+    	    case "1":
+    	    	System.out.println("El pago en efectivo de " + pasajes + "boletos por la suma total de $" + viajeElegido.getPrecio()*pasajes +" se debera realizar presencialmente en la sucursal.");
+    	        break;
+    	    case "2":
+    	    	pasajero.showTarjetas();
+    	    	ArrayList<Tarjeta> tarjetas = pasajero.getTarjeta();
+    	    	if(tarjetas.size() == 0) {
+    	    		System.out.println("Por favor asocie una tarjeta de credito.");
+    	    		pasajero.cargarTarjeta();
+    	    	} else {
+    	    		System.out.println("Por favor elija una tarjeta");
+    	    		int nrotarjeta = console.nextInt();
+    	    		while(nrotarjeta >= tarjetas.size()) {
+    	    			System.out.println("Opcion no valida");
+    	    			System.out.println("Vuelva a ingresar una opcion");
+        	    		nrotarjeta = console.nextInt();
+    	    		}
+    	    	}
+    	        System.out.println("El pago de " + pasajes + "boletos por la suma total de $" + viajeElegido.getPrecio()*pasajes +" se acreditara a su tarjeta asociada.");
+    	        break;
+    	    default:
+    	        System.out.println("Opci�n no válida");
+    	        break;
+    	}
+		}
  }
 
  public boolean verificarPassword(String password) {

@@ -16,8 +16,8 @@ public class Plataforma934 {
 		this.viajes= new ArrayList<Viaje>();
 	}
 	//Metodos
-	public void loguearse(){
-		//Codigo hola
+	public void loguearse(Pasajero pasajero){
+			pasajeros.add(pasajero);
 	}
 	public Pasajero ingresarAlSistema(String dni){
 		for(Pasajero pasajeroActual: pasajeros) {
@@ -62,4 +62,16 @@ public class Plataforma934 {
 		return  new ArrayList<Viaje>(this.viajes);
 	}
 	
+	public void showViajes(){
+		for(Viaje v: viajes) {
+			System.out.println(v.toString());
+		}
+	}
+	
+	public boolean usuarioExistente(String dni) {
+		for(Pasajero pasajeroActual: pasajeros) {
+    		if (pasajeroActual.getDNI().equals(dni)) return true;
+    	}
+		return false;
+	}
 }

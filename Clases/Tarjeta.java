@@ -29,5 +29,9 @@ public class Tarjeta {
 	public void setMarca(String marca) {
 		this.marca = marca;
 	}
+	@Override
+	public String toString() {
+		return "Tarjeta [nroTarjeta=" + nroTarjeta + ", bancoEmisor=" + bancoEmisor + ", marca=" + marca + "]";
+	}
 	
 }

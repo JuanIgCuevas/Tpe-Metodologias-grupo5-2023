@@ -51,11 +51,28 @@ public class Pasajero extends Usuario {
 	}
 
 	public void cargarTarjeta() {
-		// Codigo
+		System.out.println("Ingrese Nro de Tarjeta: ");
+		String nroTarjeta = console.nextLine();
+    	int numTarj = Integer.parseInt(nroTarjeta);
+		System.out.println("Ingrese Banco emisor: ");
+		String banco = console.nextLine();
+		System.out.println("Ingrese Marca: ");
+		String marca = console.nextLine();
+		Tarjeta tarj = new Tarjeta(numTarj, banco, marca);
+		this.tarjetas.add(tarj);
+		System.out.println("La tarjeta fue ingresada exitosamente.");
 	}
 
 	public void eliminarTarjeta() {
-		// Codigo
+		System.out.println("Ingrese Nro de Tarjeta que desea eliminar: ");
+		String nroTarjeta = console.nextLine();
+		int numTarj = Integer.parseInt(nroTarjeta); 
+		for(int i=0; i< tarjetas.size(); i++) {
+			if(numTarj == tarjetas.get(i).getNroTarjeta()) {
+				tarjetas.remove(i);
+			}
+		}
+		System.out.println("La tarjeta fue eliminada corectamente.");
 	}
 
 	public void asignarPasajes(Pasajero p) {
@@ -76,6 +93,18 @@ public class Pasajero extends Usuario {
 
 	public void eliminarSuscripcion(Suscripcion s) {
 		// Codigo
+	}
+
+	public void showTarjetas() {
+		if(tarjetas.size()==0) {
+			System.out.println("No tiene ninguna tarjeta asociada.");
+		}
+		else {
+			System.out.println("Tarjetas asociadas:");
+			for(Tarjeta t: tarjetas) {
+				System.out.println(t.toString());
+			}
+		}
 	}
 
 	@Override
